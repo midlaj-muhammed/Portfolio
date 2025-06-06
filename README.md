@@ -118,6 +118,3 @@ I'm open to:
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## ⭐ Show your support
-
-If you find my work valuable, please give it a ⭐️ on GitHub!
