@@ -77,7 +77,7 @@ function App() {
       description: 'Comprehensive text analysis platform that helps users detect AI-generated content, check for plagiarism, and transform artificial text into natural human writing.',
       category: 'nlp',
       technologies: ['Python', 'NLP', 'React', 'TensorFlow'],
-      liveDemo: '#',
+      liveDemo: 'https://writegenuine.netlify.app/',
       github: 'https://github.com/midlaj-muhammed/WriteGenuine',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
     },
@@ -87,7 +87,7 @@ function App() {
       description: 'Sentiment analysis tool that analyzes URLs and hashtags, providing real-time sentiment scores, trends, and visualizations with a modern, responsive UI.',
       category: 'nlp',
       technologies: ['Python', 'NLP', 'React', 'Data Visualization'],
-      liveDemo: '#',
+      liveDemo: 'https://sentiment-scope-ten.vercel.app/',
       github: 'https://github.com/midlaj-muhammed/SentimentScope',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
     },
@@ -97,7 +97,7 @@ function App() {
       description: 'Modern file sharing application built with React, TypeScript, and Supabase that allows users to securely upload, manage, and share files with customizable access controls.',
       category: 'web',
       technologies: ['React', 'TypeScript', 'Supabase', 'Node.js'],
-      liveDemo: '#',
+      liveDemo: 'https://shiftbox.netlify.app/',
       github: 'https://github.com/midlaj-muhammed/ShiftBox',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
     },
