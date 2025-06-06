@@ -47,6 +47,9 @@ venv/
 .venv/
 __pycache__/
 
+# Emergent folder
+.emergent/
+
 # ===================
 # ADDITIONAL RULES TO PREVENT FILE SIZE VIOLATIONS
 # ===================
