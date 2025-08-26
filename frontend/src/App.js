@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import ResumeCard from './components/ResumeCard';
 
 function App() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -32,85 +33,175 @@ function App() {
 
   const projects = [
     {
-      id: 1,
-      title: 'CloudFlow CRM',
-      description: 'A comprehensive Customer Relationship Management system built with React, TypeScript, and Tailwind CSS that helps businesses manage their customer relationships, track sales pipelines, and analyze business metrics.',
-      category: 'web',
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Node.js'],
-      liveDemo: 'https://cloud-flow-crm.netlify.app/',
-      github: 'https://github.com/midlaj-muhammed/Cloud-Flow-CRM',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
-    },
-    {
-      id: 2,
-      title: 'IdeaStruct',
-      description: 'An AI-powered web platform that helps users transform their app ideas into detailed technical blueprints with recommended tech stacks and implementation plans.',
-      category: 'nlp',
-      technologies: ['Python', 'NLP', 'React', 'TensorFlow'],
-      liveDemo: 'https://idea-struct.vercel.app/',
-      github: 'https://github.com/midlaj-muhammed/IdeaStruct',
-      image: 'https://images.unsplash.com/photo-1621711678457-a314cede97d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
-    },
-    {
-      id: 3,
-      title: 'LeafLens',
-      description: 'AI-powered plant companion that identifies plants using Google Gemini AI. Simply upload a photo or describe a plant, and our app instantly identifies it.',
+      id: 101,
+      title: 'Real-time Object Detection with YOLO',
+      description: 'Python system for real-time detection of 80+ classes using YOLO (incl. YOLOv8).',
       category: 'cv',
-      technologies: ['Python', 'TensorFlow', 'OpenCV', 'Google Gemini AI', 'React'],
-      liveDemo: 'https://leaf-lens-one.vercel.app/',
-      github: 'https://github.com/midlaj-muhammed/LeafLens',
-      image: 'https://images.pexels.com/photos/17484975/pexels-photo-17484975.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      technologies: ['Python', 'YOLOv8', 'OpenCV'],
+      liveDemo: '#',
+      github: 'https://github.com/midlaj-muhammed/Real-time_Object_Detection_with_YOLO',
+      image: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=85&auto=format&fit=crop&w=1400'
     },
     {
-      id: 4,
-      title: 'CortexCrawler',
-      description: 'AI-powered platform that transforms any website into structured data without coding. Features smart extraction, intelligent summaries, and enterprise-grade security.',
+      id: 102,
+      title: 'Sign Language Detector Pro',
+      description: 'AI web app recognizing ASL gestures using MediaPipe and Google Gemini AI.',
+      category: 'cv',
+      technologies: ['Python', 'MediaPipe', 'Gemini', 'OpenAI'],
+      liveDemo: 'https://huggingface.co/spaces/midlajvalappil/Sign-Language-Detector-Pro',
+      github: 'https://github.com/midlaj-muhammed/Sign-Language-Detector-Pro',
+      image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 103,
+      title: 'Stock Price Movement Prediction',
+      description: 'Deep learning (LSTM, TCN) system predicting stock price movements across 100+ symbols.',
       category: 'dl',
-      technologies: ['Python', 'Next.js', 'Machine Learning', 'BeautifulSoup'],
-      liveDemo: 'https://cortex-crawler.vercel.app/',
-      github: 'https://github.com/midlaj-muhammed/CortexCrawler',
-      image: 'https://images.pexels.com/photos/17484901/pexels-photo-17484901.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      technologies: ['Python', 'LSTM', 'TCN', 'Streamlit'],
+      liveDemo: 'https://stock-price-movement-prediction-system.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/Stock-Price-Movement-Prediction-System',
+      image: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?q=85&auto=format&fit=crop&w=1400'
     },
     {
-      id: 5,
-      title: 'WriteGenuine',
-      description: 'Comprehensive text analysis platform that helps users detect AI-generated content, check for plagiarism, and transform artificial text into natural human writing.',
-      category: 'nlp',
-      technologies: ['Python', 'NLP', 'React', 'TensorFlow'],
-      liveDemo: 'https://writegenuine.netlify.app/',
-      github: 'https://github.com/midlaj-muhammed/WriteGenuine',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
+      id: 104,
+      title: 'YOLO v5 Target Detection (Web)',
+      description: 'Real-time web-based object detection with ROIs, live camera feed, and auto capture.',
+      category: 'cv',
+      technologies: ['Python', 'YOLOv5', 'OpenCV'],
+      liveDemo: '#',
+      github: 'https://github.com/midlaj-muhammed/YOLO-v5-Target-Detection-Web',
+      image: 'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=85&auto=format&fit=crop&w=1400&v=2'
     },
     {
-      id: 6,
+      id: 105,
       title: 'SentimentScope',
-      description: 'Sentiment analysis tool that analyzes URLs and hashtags, providing real-time sentiment scores, trends, and visualizations with a modern, responsive UI.',
+      description: 'Real-time sentiment analysis for URLs/hashtags with trends and visualizations.',
       category: 'nlp',
-      technologies: ['Python', 'NLP', 'React', 'Data Visualization'],
+      technologies: ['TypeScript', 'NLP', 'Visualization'],
       liveDemo: 'https://sentiment-scope-ten.vercel.app/',
       github: 'https://github.com/midlaj-muhammed/SentimentScope',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
+      image: 'https://images.unsplash.com/photo-1556761175-129418cb2dfe?q=85&auto=format&fit=crop&w=1400'
     },
     {
-      id: 7,
-      title: 'ShiftBox',
-      description: 'Modern file sharing application built with React, TypeScript, and Supabase that allows users to securely upload, manage, and share files with customizable access controls.',
-      category: 'web',
-      technologies: ['React', 'TypeScript', 'Supabase', 'Node.js'],
-      liveDemo: 'https://shiftbox.netlify.app/',
-      github: 'https://github.com/midlaj-muhammed/ShiftBox',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYWNoaW5lJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzQ5MjE0MDQ1fDA&ixlib=rb-4.1.0&q=85'
+      id: 106,
+      title: 'WriteGenuine',
+      description: 'Text analysis platform: AI-content detection, plagiarism check, and humanize.',
+      category: 'nlp',
+      technologies: ['TypeScript', 'NLP'],
+      liveDemo: 'https://writegenuine.netlify.app/',
+      github: 'https://github.com/midlaj-muhammed/WriteGenuine',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=85&auto=format&fit=crop&w=1400'
+    }
+    ,
+    {
+      id: 201,
+      title: 'Multilingual Sentiment Analysis Tool',
+      description: 'Sentiment analysis across multiple languages with transformer models.',
+      category: 'nlp',
+      technologies: ['Python', 'Transformers', 'XLM-RoBERTa', 'mBERT'],
+      liveDemo: 'https://multilingual-sentiment-analysis.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/Multilingual-Sentiment-Analysis-Tool',
+      image: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=85&auto=format&fit=crop&w=1400'
     },
     {
-      id: 8,
-      title: 'CalorAI',
-      description: 'AI-powered nutrition and calorie tracking application using computer vision for food recognition and nutritional analysis. Features real-time food detection, calorie counting, and personalized meal recommendations.',
-      category: 'cv',
-      technologies: ['Python', 'PyTorch', 'Computer Vision', 'React Native', 'TensorFlow'],
+      id: 202,
+      title: 'Mental Health Detector from Chat Text',
+      description: 'NLP classifier detecting stress, anxiety, and depression from chat text.',
+      category: 'nlp',
+      technologies: ['Python', 'NLP', 'Streamlit'],
+      liveDemo: 'https://mental-health-detector-from-chat-text.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/Mental-Health-Detector-from-Chat-Text',
+      image: 'https://images.unsplash.com/photo-1517512006864-7edc3b933137?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 203,
+      title: 'Explainable AI Credit Scoring System',
+      description: 'Credit default prediction with interpretable explanations.',
+      category: 'dl',
+      technologies: ['Python', 'XAI', 'Streamlit'],
+      liveDemo: 'https://explainable-ai-credit-scoring.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/Explainable-AI-Credit-Scoring-System',
+      image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 204,
+      title: 'AI Note Summarizer',
+      description: 'Summarize PDFs and text into concise bullet points with AI.',
+      category: 'nlp',
+      technologies: ['Python', 'LLM'],
+      liveDemo: 'https://huggingface.co/spaces/midlajvalappil/AI-Note-Summarizer',
+      github: 'https://github.com/midlaj-muhammed/AI-Note-Summarizer',
+      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 205,
+      title: 'AI‑Powered YouTube Transcript Tutor',
+      description: 'Ask questions and learn from YouTube transcripts using AI.',
+      category: 'nlp',
+      technologies: ['Python', 'LLM', 'Streamlit'],
+      liveDemo: 'https://huggingface.co/spaces/midlajvalappil/AI-Powered-YouTube-Transcript-Tutor',
+      github: 'https://github.com/midlaj-muhammed/AI-Powered-YouTube-Transcript-Tutor',
+      image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=85&auto=format&fit=crop&w=1400&v=2'
+    },
+    {
+      id: 206,
+      title: 'AI‑Based Data Cleaner',
+      description: 'AI-powered data cleaning with logical inconsistency detection.',
+      category: 'dl',
+      technologies: ['Python', 'Pandas', 'ML', 'Streamlit'],
+      liveDemo: 'https://ai-based-data-cleaner.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/AI-Based-Data-Cleaner',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 207,
+      title: 'Expert Journey (Resume Ranker AI)',
+      description: 'Ranks resumes against job descriptions with explainability.',
+      category: 'nlp',
+      technologies: ['Python', 'LLM'],
       liveDemo: '#',
-      github: 'https://github.com/midlaj-muhammed/CalorAI',
-      image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxmb29kJTIwaGVhbHRofGVufDB8fHx8MTcwOTIxNDA0NXww&ixlib=rb-4.1.0&q=85',
-      inDevelopment: true
+      github: 'https://github.com/midlaj-muhammed/Expert-Journey-Resume-Ranker-AI',
+      image: 'https://images.unsplash.com/photo-1554774853-b415df9eeb92?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 208,
+      title: 'ImageMagic',
+      description: 'AI image creation and transformation web application.',
+      category: 'cv',
+      technologies: ['TypeScript', 'Next.js', 'AI'],
+      liveDemo: 'https://image-magic-olive.vercel.app',
+      github: 'https://github.com/midlaj-muhammed/ImageMagic',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 209,
+      title: 'LeafLens',
+      description: 'Identify plants from images using modern vision models.',
+      category: 'cv',
+      technologies: ['TypeScript', 'OpenCV', 'Gemini'],
+      liveDemo: 'https://leaf-lens-one.vercel.app',
+      github: 'https://github.com/midlaj-muhammed/LeafLens',
+      image: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=85&auto=format&fit=crop&w=1400&v=2'
+    },
+    {
+      id: 210,
+      title: 'IdeaStruct',
+      description: 'Transform app ideas into technical blueprints with AI.',
+      category: 'nlp',
+      technologies: ['TypeScript', 'Next.js', 'AI'],
+      liveDemo: 'https://idea-struct.vercel.app',
+      github: 'https://github.com/midlaj-muhammed/IdeaStruct',
+      image: 'https://images.unsplash.com/photo-1621711678457-a314cede97d0?q=85&auto=format&fit=crop&w=1400'
+    },
+    {
+      id: 211,
+      title: 'Dubai Genie (DG)',
+      description: 'AI chatbot to plan personalized trips to Dubai.',
+      category: 'nlp',
+      technologies: ['Python', 'LLM', 'Streamlit'],
+      liveDemo: 'https://dubaigenie.streamlit.app/',
+      github: 'https://github.com/midlaj-muhammed/Dubai-Genie-DG-',
+      image: `https://images.unsplash.com/photo-1518684079-3c830dcef090?q=85&auto=format&fit=crop&w=1400&v=3&cb=${Date.now()}`
     }
   ];
 
@@ -156,6 +247,7 @@ function App() {
               <button onClick={() => scrollToSection('about')} className="hover:text-blue-400 transition-colors">About</button>
               <button onClick={() => scrollToSection('projects')} className="hover:text-blue-400 transition-colors">Projects</button>
               <button onClick={() => scrollToSection('skills')} className="hover:text-blue-400 transition-colors">Skills</button>
+              <button onClick={() => scrollToSection('resume')} className="hover:text-blue-400 transition-colors">Resume</button>
               <button onClick={() => scrollToSection('contact')} className="hover:text-blue-400 transition-colors">Contact</button>
             </div>
           </div>
@@ -485,6 +577,36 @@ function App() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Resume Section */}
+      <section id="resume" className="py-24 bg-gray-800">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-block text-xs tracking-wider uppercase bg-blue-500/10 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full mb-3">Highlighted</span>
+            <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Resume
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto mb-8"></div>
+            <p className="text-gray-300 max-w-3xl mx-auto">
+              Download my latest resume or preview it instantly in your browser. This document outlines my core skills, recent projects, and professional experience.
+            </p>
+          </div>
+
+          <ResumeCard
+            title="Latest Resume"
+            resume={{
+              name: 'Muhammed Midlaj Resume.pdf',
+              url: '/resume/Muhammed Midlaj Resume.pdf',
+              size: 0,
+              updatedAt: new Date(),
+            }}
+            onUploadClick={() => {
+              // Placeholder for upload action
+              alert('Upload Resume clicked');
+            }}
+          />
         </div>
       </section>
 
