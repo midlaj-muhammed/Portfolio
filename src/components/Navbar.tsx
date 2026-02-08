@@ -39,16 +39,14 @@ export const Navbar = () => {
                 </div>
 
                 {/* Desktop Button */}
-                <motion.a
+                <Link
                     href="/Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(13, 127, 242, 0.4)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="hidden md:flex px-6 py-2 rounded-xl bg-primary text-white text-xs font-black uppercase tracking-widest transition-all"
+                    className="hidden md:flex px-6 py-2 rounded-xl bg-primary text-white text-xs font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(13,127,242,0.4)]"
                 >
                     Launch CV
-                </motion.a>
+                </Link>
 
                 {/* Mobile Toggle Button */}
                 <div className="md:hidden z-50 relative">
@@ -79,7 +77,7 @@ export const Navbar = () => {
                             </Link>
                         ))}
                         <div className="w-full h-px bg-white/10 my-2" />
-                        <a
+                        <Link
                             href="/Resume.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -87,7 +85,7 @@ export const Navbar = () => {
                             onClick={() => setIsOpen(false)}
                         >
                             Launch CV
-                        </a>
+                        </Link>
                     </motion.div>
                 )}
             </AnimatePresence>
