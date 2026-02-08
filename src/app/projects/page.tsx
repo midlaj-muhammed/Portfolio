@@ -5,6 +5,7 @@ import { Github, ExternalLink, Brain, Code2, Cpu, Globe, Search } from "lucide-r
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
+import { getImagePath } from "@/lib/utils";
 
 const projects = [
     {
@@ -159,7 +160,7 @@ export default function ProjectsPage() {
                                 {project.image && (
                                     <div className="aspect-video relative overflow-hidden">
                                         <Image
-                                            src={project.image}
+                                            src={getImagePath(project.image)}
                                             alt={project.title}
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-110"

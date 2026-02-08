@@ -4,6 +4,7 @@ import { GraduationCap, Trophy } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
+import { getImagePath } from "@/lib/utils";
 
 export default function AboutPage() {
     const experiences = [
@@ -45,7 +46,7 @@ export default function AboutPage() {
                             <div className="absolute inset-0 bg-primary/30 blur-[100px] rounded-full animate-pulse" />
                             <div className="relative w-full h-full glass rounded-[4rem] overflow-hidden border-4 border-white/10 shadow-2xl group">
                                 <Image
-                                    src="/midlaj-avatar.png"
+                                    src={getImagePath("/midlaj-avatar.png")}
                                     alt="Muhammed Midlaj"
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"

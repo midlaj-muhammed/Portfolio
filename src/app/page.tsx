@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
+import { getImagePath } from "@/lib/utils";
 
 export default function Home() {
   const skills = [
@@ -90,7 +91,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-primary/30 blur-[120px] rounded-full animate-pulse" />
               <div className="relative w-full h-full rounded-[4rem] overflow-hidden border-4 border-white/10 shadow-2xl group">
                 <Image
-                  src="/midlaj-avatar.png"
+                  src={getImagePath("/midlaj-avatar.png")}
                   alt="Muhammed Midlaj"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -218,7 +219,7 @@ export default function Home() {
               >
                 <div className="aspect-[16/10] relative overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={getImagePath(project.image)}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
