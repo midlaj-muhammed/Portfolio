@@ -115,28 +115,28 @@ export default function ProjectsPage() {
             <div className="bg-grid absolute inset-0 opacity-10 pointer-events-none" />
             <Navbar />
 
-            <main className="pt-40 pb-20 px-6 md:px-20 relative z-10">
+            <main className="pt-28 md:pt-40 pb-16 md:pb-20 px-4 md:px-20 relative z-10">
                 <div className="max-w-7xl mx-auto">
-                    <header className="mb-20">
+                    <header className="mb-12 md:mb-20">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-5xl md:text-8xl font-black mb-8 tracking-tighter"
+                            className="text-3xl sm:text-4xl md:text-8xl font-black mb-4 md:mb-8 tracking-tighter"
                         >
                             Intelligent <br /><span className="text-gradient italic">Showcase_</span>
                         </motion.h1>
-                        <p className="text-secondary text-xl max-w-2xl font-medium leading-relaxed italic">
+                        <p className="text-secondary text-base md:text-xl max-w-2xl font-medium leading-relaxed italic">
                             A curated collection of neural systems and algorithmic architectures.
                         </p>
                     </header>
 
                     {/* Filter Bar */}
-                    <div className="flex flex-wrap gap-4 mb-16">
+                    <div className="flex flex-wrap gap-2 md:gap-4 mb-10 md:mb-16">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setFilter(cat)}
-                                className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${filter === cat
+                                className={`px-5 md:px-8 py-2 md:py-3 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all ${filter === cat
                                     ? "bg-primary text-white shadow-[0_0_20px_rgba(13,127,242,0.4)]"
                                     : "glass text-secondary hover:bg-white/10"
                                     }`}
@@ -147,7 +147,7 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                         {filteredProjects.map((project, i) => (
                             <motion.div
                                 key={project.title}
@@ -155,7 +155,7 @@ export default function ProjectsPage() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                                className="glass-card rounded-[2.5rem] overflow-hidden flex flex-col group"
+                                className="glass-card rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden flex flex-col group"
                             >
                                 {project.image && (
                                     <div className="aspect-video relative overflow-hidden">
@@ -169,34 +169,34 @@ export default function ProjectsPage() {
                                     </div>
                                 )}
 
-                                <div className="p-10 flex flex-col flex-grow">
-                                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20">
+                                <div className="p-6 md:p-10 flex flex-col flex-grow">
+                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center mb-6 md:mb-8 border border-primary/20">
                                         {project.icon}
                                     </div>
 
-                                    <h3 className="text-2xl font-black mb-4 group-hover:text-primary transition-colors italic leading-tight">
+                                    <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 group-hover:text-primary transition-colors italic leading-tight">
                                         {project.title}
                                     </h3>
 
-                                    <p className="text-secondary text-sm leading-relaxed mb-8 flex-grow font-medium italic">
+                                    <p className="text-secondary text-xs md:text-sm leading-relaxed mb-6 md:mb-8 flex-grow font-medium italic">
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-2 mb-10">
+                                    <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6 md:mb-10">
                                         {project.tags.map(tag => (
-                                            <span key={tag} className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded bg-white/5 text-primary border border-primary/10">
+                                            <span key={tag} className="text-[9px] md:text-[10px] font-black uppercase tracking-widest px-2 md:px-3 py-1 rounded bg-white/5 text-primary border border-primary/10">
                                                 {tag}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <div className="flex items-center gap-8 mt-auto pt-6 border-t border-white/5">
-                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-widest flex items-center gap-2 text-white hover:text-primary transition-all">
-                                            <Github size={16} /> Source_
+                                    <div className="flex items-center gap-6 md:gap-8 mt-auto pt-4 md:pt-6 border-t border-white/5">
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2 text-white hover:text-primary transition-all">
+                                            <Github size={14} /> Source_
                                         </a>
                                         {project.live && (
-                                            <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-widest flex items-center gap-2 text-white hover:text-primary transition-all">
-                                                <ExternalLink size={16} /> Live_
+                                            <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2 text-white hover:text-primary transition-all">
+                                                <ExternalLink size={14} /> Live_
                                             </a>
                                         )}
                                     </div>
