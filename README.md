@@ -88,4 +88,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-*Designed and Developed by [Midlaj](https://midlaj.vercel.app/)*
+*Designed and Developed by [Midlaj](https://midlaj-muhammed.github.io/Portfolio//)*
