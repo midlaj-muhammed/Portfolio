@@ -6,9 +6,9 @@ const repoName = "Portfolio";
 const nextConfig: NextConfig = {
   output: "export",
   basePath: isProd ? `/${repoName}` : "",
+  assetPrefix: isProd ? `/${repoName}/` : "",
   images: {
-    loader: "custom",
-    loaderFile: "./src/image-loader.ts",
+    unoptimized: true,
   },
 };
 
