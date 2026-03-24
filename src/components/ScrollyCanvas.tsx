@@ -7,8 +7,9 @@ import Overlay from "./Overlay";
 const FRAME_COUNT = 192; // 000 to 191
 
 function getFrameUrl(index: number) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
   const paddedIndex = index.toString().padStart(3, "0");
-  return `/sequence/frame_${paddedIndex}_delay-0.041s.webp`;
+  return `${basePath}/sequence/frame_${paddedIndex}_delay-0.041s.webp`;
 }
 
 export default function ScrollyCanvas() {

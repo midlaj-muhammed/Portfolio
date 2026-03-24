@@ -41,7 +41,7 @@ export default function Overlay({ progress }: OverlayProps) {
             AI Specialist & Full Stack Developer.
           </p>
           <motion.a
-            href="/resume/Resume.pdf"
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/resume/Resume.pdf`}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
