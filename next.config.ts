@@ -13,7 +13,6 @@ if (isGithubActions) {
 const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
-  assetPrefix,
   basePath,
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,

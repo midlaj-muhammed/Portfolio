@@ -33,12 +33,18 @@ export default function ScrollyCanvas() {
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = getFrameUrl(i);
-      img.onload = () => {
+      const handleProgress = () => {
         loadedCount++;
         setLoadProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
         if (loadedCount === FRAME_COUNT) {
-          setTimeout(() => setLoaded(true), 400); // slight delay to allow 100% to read
+          setTimeout(() => setLoaded(true), 400);
         }
+      };
+      
+      img.onload = handleProgress;
+      img.onerror = () => {
+        console.warn(`Frame failed to load: ${img.src}`);
+        handleProgress(); 
       };
       loadedImages.push(img);
     }
