@@ -7,12 +7,8 @@ import Overlay from "./Overlay";
 const FRAME_COUNT = 192; // 000 to 191
 
 function getFrameUrl(index: number) {
-  let basePath = "";
-  if (typeof window !== "undefined") {
-    basePath = window.location.pathname.startsWith("/Portfolio") ? "/Portfolio" : "";
-  }
   const paddedIndex = index.toString().padStart(3, "0");
-  return `${basePath}/sequence/frame_${paddedIndex}_delay-0.041s.webp`;
+  return `./sequence/frame_${paddedIndex}_delay-0.041s.webp`;
 }
 
 export default function ScrollyCanvas() {
@@ -36,11 +32,19 @@ export default function ScrollyCanvas() {
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = getFrameUrl(i);
+      const REQUIRED_FRAMES = Math.min(FRAME_COUNT, 25);
+      
       const handleProgress = () => {
         loadedCount++;
-        setLoadProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
-        if (loadedCount === FRAME_COUNT) {
-          setTimeout(() => setLoaded(true), 400);
+        
+        // Display progress based on REQUIRED_FRAMES, capped at 100%
+        let progress = Math.round((loadedCount / REQUIRED_FRAMES) * 100);
+        if (progress > 100) progress = 100;
+        setLoadProgress(progress);
+        
+        // Unlock the site once the initial chunk of frames is loaded
+        if (loadedCount === REQUIRED_FRAMES) {
+          setTimeout(() => setLoaded(true), 200);
         }
       };
       

@@ -8,12 +8,8 @@ interface OverlayProps {
 }
 
 export default function Overlay({ progress }: OverlayProps) {
-  // Determine if we are hosted under /Portfolio (like GitHub Pages)
-  let basePath = "";
-  if (typeof window !== "undefined") {
-    basePath = window.location.pathname.startsWith("/Portfolio") ? "/Portfolio" : "";
-  }
-  
+  // We use the scroll progress [0, 1] across the 500vh to map opacities and parallax depths
+
   // Section 1: 0% to 20% scroll
   const opacity1 = useTransform(progress, [0, 0.15, 0.25], [1, 1, 0]);
   // Mid depth parallax (0.5x speed)
@@ -45,7 +41,7 @@ export default function Overlay({ progress }: OverlayProps) {
             AI Specialist & Full Stack Developer.
           </p>
           <motion.a
-            href={`${basePath}/resume/Resume.pdf`}
+            href="./resume/Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
