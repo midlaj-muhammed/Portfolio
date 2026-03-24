@@ -7,7 +7,10 @@ import Overlay from "./Overlay";
 const FRAME_COUNT = 192; // 000 to 191
 
 function getFrameUrl(index: number) {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  let basePath = "";
+  if (typeof window !== "undefined") {
+    basePath = window.location.pathname.startsWith("/Portfolio") ? "/Portfolio" : "";
+  }
   const paddedIndex = index.toString().padStart(3, "0");
   return `${basePath}/sequence/frame_${paddedIndex}_delay-0.041s.webp`;
 }
