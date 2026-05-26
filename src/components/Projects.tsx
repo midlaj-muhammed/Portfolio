@@ -23,62 +23,62 @@ const projects: Project[] = [
   {
     title: "Leaf Lens",
     category: "Computer Vision / AI",
-    description: "An AI-powered plant health diagnostic system using computer vision to detect diseases and provide treatment recommendations.",
+    description: "An AI-powered plant health diagnostic system built with PyTorch and TensorFlow, using computer vision and deep learning to detect crop diseases from leaf images and provide actionable treatment recommendations.",
     sourceLink: "https://github.com/midlaj-muhammed/LeafLens",
     liveLink: "https://leaf-lens-one.vercel.app/"
   },
   {
     title: "Write Genuine",
     category: "NLP / AI",
-    description: "Advanced AI-driven plagiarism detection system ensuring content authenticity and original authorship through neural linguistic analysis.",
+    description: "Advanced AI-driven plagiarism detection system built with Python and NLP transformers, ensuring content authenticity and original authorship through neural linguistic analysis and semantic similarity scoring.",
     sourceLink: "https://github.com/midlaj-muhammed/WriteGenuine",
     liveLink: "https://writegenuine.netlify.app/"
   },
   {
     title: "XAI Credit Scoring",
     category: "Explainable AI",
-    description: "A machine learning application predicting loan defaults while providing complex SHAP-based explanations for decisions.",
+    description: "A machine learning credit scoring application using scikit-learn and SHAP (SHapley Additive exPlanations) to predict loan defaults while providing transparent, interpretable explanations for every decision.",
     sourceLink: "https://github.com/midlaj-muhammed/Explainable-AI-Credit-Scoring-System",
     liveLink: "https://explainable-ai-credit-scoring.streamlit.app/"
   },
   {
     title: "AI Data Cleaner",
     category: "Automation / Data",
-    description: "Web application utilizing AI for comprehensive data cleaning and validation, detecting logical inconsistencies automatically.",
+    description: "Web application built with Streamlit and Python utilizing AI models for comprehensive data cleaning, validation, and preprocessing — automatically detecting missing values, outliers, and logical inconsistencies in datasets.",
     sourceLink: "https://github.com/midlaj-muhammed/AI-Based-Data-Cleaner",
     liveLink: "https://ai-based-data-cleaner.streamlit.app/"
   },
   {
     title: "Sign Language Detector Pro",
     category: "Computer Vision / LSTM",
-    description: "AI-powered web application identifying ASL gestures from video leveraging MediaPipe and LSTM networks.",
+    description: "AI-powered web application for American Sign Language (ASL) recognition, leveraging Google MediaPipe for hand landmark detection and LSTM deep learning networks for real-time gesture classification from video.",
     sourceLink: "https://github.com/midlaj-muhammed/Sign-Language-Detector-Pro",
     liveLink: "https://huggingface.co/spaces/midlajvalappil/Sign-Language-Detector-Pro"
   },
   {
     title: "YT Transcript Tutor",
     category: "LLM / EdTech",
-    description: "Streamlit app transforming YouTube videos into interactive learning experiences using Large Language Models.",
+    description: "Streamlit application transforming YouTube videos into interactive learning experiences using Large Language Models (LLMs) — extracts transcripts via the YouTube API and generates summaries, quizzes, and study notes.",
     sourceLink: "https://github.com/midlaj-muhammed/AI-Powered-YouTube-Transcript-Tutor",
     liveLink: "https://huggingface.co/spaces/midlajvalappil/AI-Powered-YouTube-Transcript-Tutor"
   },
   {
     title: "YOLO v5 Target Detection Web",
     category: "Computer Vision",
-    description: "Real-time web-based object detection system featuring interactive ROI selection and live camera processing.",
+    description: "Real-time web-based object detection system built with YOLOv5 and OpenCV, featuring interactive region-of-interest (ROI) selection, live camera processing, and support for custom model weights.",
     sourceLink: "https://github.com/midlaj-muhammed/YOLO-v5-Target-Detection-Web",
   },
   {
     title: "AI-Note-Summarizer",
     category: "NLP / Digestion",
-    description: "Advanced AI model converting lengthy documents into concise bullet-point summaries, supporting PDF uploads.",
+    description: "AI-powered document summarization tool using Hugging Face transformers and NLP pipelines to convert lengthy documents and PDFs into concise bullet-point summaries with key insight extraction.",
     sourceLink: "https://github.com/midlaj-muhammed/AI-Note-Summarizer",
     liveLink: "https://huggingface.co/spaces/midlajvalappil/AI-Note-Summarizer"
   },
   {
     title: "Multilingual Sentiment Tool",
     category: "NLP / BERT",
-    description: "AI-powered tool analyzing emotional tone across languages, leveraging BERT and LSTM models for cross-lingual understanding.",
+    description: "Cross-lingual sentiment analysis tool leveraging BERT and LSTM deep learning models to analyze emotional tone across multiple languages — built with PyTorch, Hugging Face transformers, and deployed on Streamlit.",
     sourceLink: "https://github.com/midlaj-muhammed/Multilingual-Sentiment-Analysis-Tool",
     liveLink: "https://multilingual-sentiment-analysis.streamlit.app/"
   }
@@ -119,13 +119,16 @@ export default function Projects() {
   }, { scope: containerRef });
 
   return (
-    <section 
-      id="projects" 
-      ref={containerRef} 
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      ref={containerRef}
       className="relative z-20 bg-[#0a0a0a] border-t border-white/5 overflow-x-clip md:overflow-hidden min-h-screen flex flex-col md:flex-row md:items-center py-24 md:py-0"
     >
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="relative md:absolute md:top-20 md:left-12 lg:left-24 z-30 px-6 sm:px-8 md:px-0 mb-8 md:mb-0">
-        <motion.h2 
+        <motion.h2
+          id="projects-heading"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -145,19 +148,18 @@ export default function Projects() {
 
       <div 
         ref={scrollRailRef} 
-        className="flex flex-col md:flex-row px-4 sm:px-8 md:px-12 lg:px-24 gap-32 md:gap-12 md:w-max overflow-visible pb-32 md:pb-0 scrollbar-hide"
+        className="flex flex-col md:flex-row px-4 sm:px-8 md:px-12 lg:px-24 gap-6 md:gap-12 md:w-max overflow-visible pb-32 md:pb-0 scrollbar-hide"
       >
         {projects.map((project, index) => (
-          <motion.div
+          <motion.article
             key={index}
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="sticky md:static flex-shrink-0 w-full md:w-[450px] group relative overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-white/[0.15] backdrop-blur-md transition-all duration-500 hover:bg-white/[0.08] hover:border-white/[0.25] p-6 sm:p-8 md:p-10 md:hover:-translate-y-2 shadow-2xl md:shadow-[0_8px_32px_rgba(255,255,255,0.02)]"
-            style={{ 
-               willChange: "transform, opacity",
-               top: `calc(8rem + ${index * 16}px)` 
+            className="static flex-shrink-0 w-full md:w-[450px] group relative overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-white/[0.15] backdrop-blur-md transition-all duration-500 hover:bg-white/[0.08] hover:border-white/[0.25] p-6 sm:p-8 md:p-10 md:hover:-translate-y-2 shadow-2xl md:shadow-[0_8px_32px_rgba(255,255,255,0.02)]"
+            style={{
+               willChange: "transform, opacity"
             }}
           >
             {/* Subtle hover glow effect */}
@@ -175,7 +177,7 @@ export default function Projects() {
               <h3 className="text-2xl font-medium mb-3 group-hover:text-white transition-colors duration-300">
                 {project.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed font-light text-sm hidden sm:block">
+              <p className="text-gray-400 leading-relaxed font-light text-sm line-clamp-2 sm:line-clamp-none">
                 {project.description}
               </p>
             </div>
@@ -203,7 +205,7 @@ export default function Projects() {
                  </a>
               )}
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
     </section>
