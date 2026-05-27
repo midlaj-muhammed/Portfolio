@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import { useScroll, motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
 import Overlay from "./Overlay";
 
-const FRAME_COUNT = 192;
-const INITIAL_FRAMES = 25;
-const SCROLL_BUFFER = 8; // Load ±8 frames around current position
+const FRAME_COUNT = 192; // 000 to 191
 
 function getFrameUrl(index: number) {
   const paddedIndex = index.toString().padStart(3, "0");
@@ -16,87 +14,51 @@ function getFrameUrl(index: number) {
 export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageCache = useRef<Map<number, HTMLImageElement>>(new Map());
-  const lastDrawnRef = useRef(-1);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
+  // Use Framer Motion to get scroll progress of this specific container
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Load a single frame into cache
-  const loadFrame = useCallback((index: number): Promise<HTMLImageElement> => {
-    const cached = imageCache.current.get(index);
-    if (cached && cached.complete) return Promise.resolve(cached);
+  // Preload images on mount
+  useEffect(() => {
+    let loadedCount = 0;
+    const loadedImages: HTMLImageElement[] = [];
 
-    return new Promise((resolve) => {
+    for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      img.src = getFrameUrl(index);
-      img.onload = () => {
-        imageCache.current.set(index, img);
-        resolve(img);
+      img.src = getFrameUrl(i);
+      const REQUIRED_FRAMES = Math.min(FRAME_COUNT, 25);
+
+      const handleProgress = () => {
+        loadedCount++;
+
+        // Display progress based on REQUIRED_FRAMES, capped at 100%
+        let progress = Math.round((loadedCount / REQUIRED_FRAMES) * 100);
+        if (progress > 100) progress = 100;
+        setLoadProgress(progress);
+
+        // Unlock the site once the initial chunk of frames is loaded
+        if (loadedCount === REQUIRED_FRAMES) {
+          setTimeout(() => setLoaded(true), 200);
+        }
       };
+
+      img.onload = handleProgress;
       img.onerror = () => {
-        imageCache.current.set(index, img);
-        resolve(img);
+        console.warn(`Frame failed to load: ${img.src}`);
+        handleProgress();
       };
-    });
+      loadedImages.push(img);
+    }
+    setImages(loadedImages);
   }, []);
 
-  // Detect mobile and reduced motion
-  useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setIsMobile(mobile);
-
-    if (reducedMotion) {
-      // Reduced motion: load just the first frame statically
-      loadFrame(0).then(() => setLoaded(true));
-    }
-  }, [loadFrame]);
-
-  // Preload initial frames on mount
-  useEffect(() => {
-    let cancelled = false;
-    let loadedCount = 0;
-
-    // Skip initial preload if reduced-motion already handled it
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) return;
-
-    const loadInitial = async () => {
-      for (let i = 0; i < INITIAL_FRAMES; i++) {
-        if (cancelled) return;
-        await loadFrame(i);
-        if (cancelled) return;
-        loadedCount++;
-        const progress = Math.round((loadedCount / INITIAL_FRAMES) * 100);
-        setLoadProgress(progress);
-      }
-      if (!cancelled) {
-        setTimeout(() => setLoaded(true), 200);
-      }
-    };
-
-    loadInitial();
-    return () => { cancelled = true; };
-  }, [loadFrame]);
-
-  // Ensure frames around current scroll position are loaded
-  const ensureFramesLoaded = useCallback((centerIndex: number) => {
-    const start = Math.max(0, centerIndex - SCROLL_BUFFER);
-    const end = Math.min(FRAME_COUNT - 1, centerIndex + SCROLL_BUFFER);
-    for (let i = start; i <= end; i++) {
-      if (!imageCache.current.has(i)) {
-        loadFrame(i);
-      }
-    }
-  }, [loadFrame]);
-
-  // Draw image with object-fit: cover logic
+  // Function to draw image with object-fit: cover logic
   const drawImageProp = (ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
     const canvas = ctx.canvas;
     const canvasRatio = canvas.width / canvas.height;
@@ -108,9 +70,13 @@ export default function ScrollyCanvas() {
     let offsetY = 0;
 
     if (canvasRatio > imgRatio) {
+      // Canvas is wider than image (landscape canvas, portrait image)
+      // Fit width, let height overflow
       drawHeight = canvas.width / imgRatio;
       offsetY = (canvas.height - drawHeight) / 2;
     } else {
+      // Canvas is taller than image (portrait canvas, landscape image)
+      // Fit height, let width overflow
       drawWidth = canvas.height * imgRatio;
       offsetX = (canvas.width - drawWidth) / 2;
     }
@@ -121,55 +87,49 @@ export default function ScrollyCanvas() {
 
   // Sync canvas render with scroll progress
   useEffect(() => {
-    if (!loaded || !canvasRef.current) return;
+    if (!loaded || images.length === 0 || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Set canvas dimensions to parent resolution for sharpness
     const updateSize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = window.innerWidth + "px";
-      canvas.style.height = window.innerHeight + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Re-draw current frame on resize
       const currentProgress = scrollYProgress.get();
-      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(currentProgress * FRAME_COUNT));
-      const img = imageCache.current.get(frameIndex);
-      if (img) drawImageProp(ctx, img);
+      const frameIndex = Math.min(
+        FRAME_COUNT - 1,
+        Math.floor(currentProgress * FRAME_COUNT)
+      );
+      drawImageProp(ctx, images[frameIndex]);
     };
 
     window.addEventListener("resize", updateSize);
-    updateSize();
+    updateSize(); // Initial size
 
+    // Subscribe to scroll changes
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(latest * FRAME_COUNT));
-
-      if (frameIndex !== lastDrawnRef.current) {
-        lastDrawnRef.current = frameIndex;
-
-        // Trigger lazy loading of nearby frames
-        ensureFramesLoaded(frameIndex);
-
-        // Draw current frame if available
-        const img = imageCache.current.get(frameIndex);
-        if (img) {
-          requestAnimationFrame(() => {
-            drawImageProp(ctx, img);
-          });
-        }
-      }
+      const frameIndex = Math.min(
+        FRAME_COUNT - 1,
+        Math.floor(latest * FRAME_COUNT)
+      );
+      requestAnimationFrame(() => {
+        drawImageProp(ctx, images[frameIndex]);
+      });
     });
 
     return () => {
       window.removeEventListener("resize", updateSize);
       unsubscribe();
     };
-  }, [loaded, scrollYProgress, ensureFramesLoaded]);
+  }, [loaded, images, scrollYProgress]);
 
   return (
-    <div ref={containerRef} className="relative w-full bg-[#121212]" style={{ height: isMobile ? "300vh" : "500vh" }}>
+    <div ref={containerRef} className="relative h-[500vh] w-full bg-[#121212]">
+      {/* Sticky container that stays in viewport while scrolling through the 500vh parent */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <canvas
           ref={canvasRef}
@@ -177,8 +137,10 @@ export default function ScrollyCanvas() {
         />
       </div>
 
+      {/* Overlay Component taking the shared scroll progress */}
       <Overlay progress={scrollYProgress} />
 
+      {/* Epic Cinematic Preloader (Moved outside sticky container to guarantee apex z-index over Overlay) */}
       <AnimatePresence>
         {!loaded && (
           <motion.div
@@ -187,6 +149,7 @@ export default function ScrollyCanvas() {
             className="fixed inset-0 z-[99999] bg-[#0a0a0a] flex flex-col items-center justify-center pointer-events-auto"
           >
             <div className="flex flex-col items-center w-[80vw] max-w-sm">
+
               <div className="text-7xl sm:text-8xl md:text-[10rem] font-light text-white mb-6 tabular-nums flex items-baseline">
                 {loadProgress}
                 <span className="text-3xl sm:text-4xl md:text-6xl text-white/50 ml-2">%</span>

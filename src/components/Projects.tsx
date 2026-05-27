@@ -148,7 +148,7 @@ export default function Projects() {
 
       <div 
         ref={scrollRailRef} 
-        className="flex flex-col md:flex-row px-4 sm:px-8 md:px-12 lg:px-24 gap-6 md:gap-12 md:w-max overflow-visible pb-32 md:pb-0 scrollbar-hide"
+        className="flex flex-col md:flex-row px-4 sm:px-8 md:px-12 lg:px-24 gap-32 md:gap-12 md:w-max overflow-visible pb-32 md:pb-0 scrollbar-hide"
       >
         {projects.map((project, index) => (
           <motion.article
@@ -157,9 +157,10 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="static flex-shrink-0 w-full md:w-[450px] group relative overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-white/[0.15] backdrop-blur-md transition-all duration-500 hover:bg-white/[0.08] hover:border-white/[0.25] p-6 sm:p-8 md:p-10 md:hover:-translate-y-2 shadow-2xl md:shadow-[0_8px_32px_rgba(255,255,255,0.02)]"
+            className="sticky md:static flex-shrink-0 w-full md:w-[450px] group relative overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-white/[0.15] backdrop-blur-md transition-all duration-500 hover:bg-white/[0.08] hover:border-white/[0.25] p-6 sm:p-8 md:p-10 md:hover:-translate-y-2 shadow-2xl md:shadow-[0_8px_32px_rgba(255,255,255,0.02)]"
             style={{
-               willChange: "transform, opacity"
+               willChange: "transform, opacity",
+               top: `calc(8rem + ${index * 16}px)`
             }}
           >
             {/* Subtle hover glow effect */}
@@ -177,7 +178,7 @@ export default function Projects() {
               <h3 className="text-2xl font-medium mb-3 group-hover:text-white transition-colors duration-300">
                 {project.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed font-light text-sm line-clamp-2 sm:line-clamp-none">
+              <p className="text-gray-400 leading-relaxed font-light text-sm hidden sm:block">
                 {project.description}
               </p>
             </div>

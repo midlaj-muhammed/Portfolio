@@ -86,7 +86,7 @@ export default function Footer() {
                  href={link.href}
                  target="_blank"
                  rel="noreferrer"
-                 className="px-6 py-3 rounded-full border border-white/10 text-sm font-medium text-gray-400 hover:bg-white hover:text-black transition-all duration-300"
+                 className="px-6 py-2 rounded-full border border-white/10 text-sm font-medium text-gray-400 hover:bg-white hover:text-black transition-all duration-300"
                >
                  {link.label}
                </a>
