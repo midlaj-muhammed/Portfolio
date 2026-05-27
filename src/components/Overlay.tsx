@@ -34,12 +34,10 @@ export default function Overlay({ progress }: OverlayProps) {
           style={{ opacity: opacity1, y: y1 }}
           className="absolute inset-0 flex flex-col items-start justify-center text-left pl-8 md:pl-24"
         >
-          {/* Mobile gradient backdrop for text readability */}
-          <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#121212]/90 via-[#121212]/50 to-transparent md:hidden pointer-events-none" />
-          <h1 className="relative text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter mb-4 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:mix-blend-difference md:drop-shadow-none">
+          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-4 mix-blend-difference text-white">
             Muhammed <br/> Midlaj
           </h1>
-          <p className="relative text-xl sm:text-2xl md:text-4xl text-gray-300 font-light mb-8 drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)] md:mix-blend-difference md:drop-shadow-none">
+          <p className="text-2xl md:text-4xl text-gray-300 font-light mix-blend-difference mb-8">
             AI Specialist & Full Stack Developer.
           </p>
           <motion.a
