@@ -7,6 +7,13 @@ export default function Cursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hidden, setHidden] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 768px)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setIsMobile(mobile || reducedMotion);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -55,11 +62,7 @@ export default function Cursor() {
   }, [position, cursorX, cursorY]);
 
   // Don't render on mobile or reduced motion
-  if (typeof window !== "undefined") {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isMobile || reducedMotion) return null;
-  }
+  if (isMobile) return null;
 
   return (
     <motion.div

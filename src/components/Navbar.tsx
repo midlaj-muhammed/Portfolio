@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const navItems = ["Home", "About", "Skills", "Projects", "Contact"];
+const navItems = ["Home", "About", "Skills", "Projects", "Blog", "Contact"];
 
 export default function Navbar() {
   const [active, setActive] = useState("Home");
@@ -48,7 +48,7 @@ export default function Navbar() {
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
     // Observe sections
-    const ids = ["about", "skills", "projects", "contact"];
+    const ids = ["about", "skills", "projects", "blog", "contact"];
     ids.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -128,7 +128,7 @@ export default function Navbar() {
             key={item}
             onClick={() => scrollTo(item)}
             className={cn(
-              "relative px-3 py-2.5 text-[10px] sm:text-xs font-medium tracking-wide transition-colors",
+              "relative px-3 py-3 text-[11px] sm:text-xs font-medium tracking-wide transition-colors",
               active === item ? "text-white" : "text-white/50 hover:text-white/80"
             )}
           >

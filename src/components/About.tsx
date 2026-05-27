@@ -53,7 +53,8 @@ const fadeUpVariant: Variants = {
 
 export default function About() {
   return (
-    <section id="about" className="relative z-20 bg-[#121212] pt-24 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 md:px-12 lg:px-24">
+    <section id="about" aria-labelledby="about-heading" className="relative z-20 bg-[#121212] pt-24 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 md:px-12 lg:px-24 border-t border-white/5">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
         
         {/* Left Column - Bio & Philosophy */}
@@ -66,7 +67,7 @@ export default function About() {
           }}
           className="flex flex-col gap-8"
         >
-          <motion.h2 variants={fadeUpVariant} className="text-xs md:text-sm font-mono tracking-widest text-white/50 uppercase">
+          <motion.h2 id="about-heading" variants={fadeUpVariant} className="text-xs md:text-sm font-mono tracking-widest text-white/50 uppercase">
             // Deciphering Complexity
           </motion.h2>
           <motion.p variants={fadeUpVariant} className="text-2xl sm:text-3xl md:text-5xl font-light leading-tight">
@@ -77,27 +78,41 @@ export default function About() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid (Spans full grid length) */}
-        <motion.div 
+        {/* Services Bento Grid (Spans full grid length) */}
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={{
             visible: { transition: { staggerChildren: 0.1, delayChildren: 0.4 } }
           }}
-          className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
+          className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"
         >
-          {services.map((svc, i) => (
-            <motion.div 
-              key={i} 
-              variants={fadeUpVariant} 
-              className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/10 backdrop-blur-md hover:bg-white/[0.05] hover:-translate-y-2 transition-all duration-300"
+          {/* Top row: two cards side-by-side */}
+          {services.slice(0, 2).map((svc, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUpVariant}
+              className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md hover:bg-white/[0.05] hover:-translate-y-2 transition-all duration-300"
             >
               <div className="text-white/60 mb-8">{svc.icon}</div>
-              <h4 className="text-xl font-medium mb-3 tracking-wide">{svc.title}</h4>
+              <h3 className="text-xl font-medium mb-3 tracking-wide">{svc.title}</h3>
               <p className="text-gray-400 text-sm font-light leading-relaxed">{svc.desc}</p>
             </motion.div>
           ))}
+          {/* Bottom row: full-width card */}
+          <motion.div
+            variants={fadeUpVariant}
+            className="md:col-span-2 p-8 md:p-10 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md hover:bg-white/[0.05] transition-all duration-300"
+          >
+            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+              <div className="flex-shrink-0">
+                <div className="text-white/60 mb-4">{services[2].icon}</div>
+                <h3 className="text-xl font-medium tracking-wide">{services[2].title}</h3>
+              </div>
+              <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed">{services[2].desc}</p>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Right Column - Timeline */}

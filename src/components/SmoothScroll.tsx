@@ -9,7 +9,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Initialize Lenis
+    // Skip Lenis on mobile — native touch scroll is smoother and preserves sticky positioning
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    if (!isDesktop) return;
+
     const lenis = new Lenis({
       lerp: 0.06,
       duration: 1.2,

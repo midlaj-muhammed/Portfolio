@@ -24,13 +24,17 @@ export default function Contact() {
     projectType: "",
     message: ""
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.message.length < 10) {
-      alert("Message must be at least 10 characters long.");
-      return;
-    }
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    if (!formData.projectType) newErrors.projectType = "Please select a project type.";
+    if (formData.message.length < 10) newErrors.message = "Message must be at least 10 characters.";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
     setLoading(true);
     setStatus("idle");
@@ -63,10 +67,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative z-20 bg-[#121212] py-20 md:py-32 px-4 sm:px-6 md:px-12 lg:px-24 border-t border-white/5">
+    <section id="contact" aria-labelledby="contact-heading" className="relative z-20 bg-[#121212] py-20 md:py-32 px-4 sm:px-6 md:px-12 lg:px-24 border-t border-white/5">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="max-w-4xl mx-auto">
         <div className="mb-12 md:mb-16">
-          <motion.h2 
+          <motion.h2
+            id="contact-heading"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -108,35 +114,40 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-mono text-gray-400 uppercase tracking-wider">Name</label>
-                <input 
+                <label htmlFor="name" className="text-sm font-mono text-gray-400 uppercase tracking-wider">Name</label>
+                <input
+                  id="name"
                   required
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) => { setFormData({...formData, name: e.target.value}); setErrors((prev) => ({ ...prev, name: "" })); }}
                   className="bg-transparent border-b border-white/20 focus:border-white/60 outline-none pb-2 transition-colors placeholder:text-gray-600 text-white"
                   placeholder="Jane Doe"
                 />
+                {errors.name && <span className="text-red-400 text-xs mt-1">{errors.name}</span>}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-mono text-gray-400 uppercase tracking-wider">Email</label>
-                <input 
+                <label htmlFor="email" className="text-sm font-mono text-gray-400 uppercase tracking-wider">Email</label>
+                <input
+                  id="email"
                   required
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => { setFormData({...formData, email: e.target.value}); setErrors((prev) => ({ ...prev, email: "" })); }}
                   className="bg-transparent border-b border-white/20 focus:border-white/60 outline-none pb-2 transition-colors placeholder:text-gray-600 text-white"
                   placeholder="jane@example.com"
                 />
+                {errors.email && <span className="text-red-400 text-xs mt-1">{errors.email}</span>}
               </div>
             </div>
             
             <div className="flex flex-col gap-2 mt-4">
-              <label className="text-sm font-mono text-gray-400 uppercase tracking-wider">Project Type *</label>
-              <select 
+              <label htmlFor="projectType" className="text-sm font-mono text-gray-400 uppercase tracking-wider">Project Type *</label>
+              <select
+                id="projectType"
                 required
                 value={formData.projectType}
-                onChange={(e) => setFormData({...formData, projectType: e.target.value})}
+                onChange={(e) => { setFormData({...formData, projectType: e.target.value}); setErrors((prev) => ({ ...prev, projectType: "" })); }}
                 className="bg-transparent border-b border-white/20 focus:border-white/60 outline-none pb-2 transition-colors text-white appearance-none cursor-pointer"
               >
                 <option value="" disabled className="text-black">Select Project Type</option>
@@ -145,22 +156,25 @@ export default function Contact() {
                 <option value="UI/UX Design" className="text-black">UI/UX Design</option>
                 <option value="Others" className="text-black">Others</option>
               </select>
+              {errors.projectType && <span className="text-red-400 text-xs mt-1">{errors.projectType}</span>}
             </div>
 
             <div className="flex flex-col gap-2 mt-4">
-              <label className="text-sm font-mono text-gray-400 uppercase tracking-wider">Message</label>
-              <textarea 
+              <label htmlFor="message" className="text-sm font-mono text-gray-400 uppercase tracking-wider">Message</label>
+              <textarea
+                id="message"
                 required
                 rows={4}
                 value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                onChange={(e) => { setFormData({...formData, message: e.target.value}); setErrors((prev) => ({ ...prev, message: "" })); }}
                 className="bg-transparent border-b border-white/20 focus:border-white/60 outline-none pb-2 transition-colors placeholder:text-gray-600 text-white resize-none"
                 placeholder="Hello, I'd like to talk about..."
               />
+              {errors.message && <span className="text-red-400 text-xs mt-1">{errors.message}</span>}
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={loading}
               className="mt-8 self-start flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
             >

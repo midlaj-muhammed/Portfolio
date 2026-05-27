@@ -59,13 +59,22 @@ body {
   animation: marquee-reverse 30s linear infinite;
 }
 
-/* Pause animation on hover */
-.animate-marquee:hover, .animate-marquee-reverse:hover {
-  animation-play-state: paused;
+/* Pause animation on hover (desktop only — prevents sticky pause on touch) */
+@media (hover: hover) and (pointer: fine) {
+  .animate-marquee:hover, .animate-marquee-reverse:hover {
+    animation-play-state: paused;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* Reduced motion: stop all CSS animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee, .animate-marquee-reverse {
+    animation: none;
   }
 }
