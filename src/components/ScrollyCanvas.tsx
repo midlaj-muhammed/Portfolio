@@ -58,30 +58,46 @@ export default function ScrollyCanvas() {
     setImages(loadedImages);
   }, []);
 
-  // Function to draw image with object-fit: cover logic
+  // Function to draw image — cover on desktop, contain on mobile portrait
   const drawImageProp = (ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
     const canvas = ctx.canvas;
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
+
+    // On portrait screens (mobile), use contain-fit to avoid cropping face
+    const useContain = canvasRatio < 0.8;
 
     let drawWidth = canvas.width;
     let drawHeight = canvas.height;
     let offsetX = 0;
     let offsetY = 0;
 
-    if (canvasRatio > imgRatio) {
-      // Canvas is wider than image (landscape canvas, portrait image)
-      // Fit width, let height overflow
-      drawHeight = canvas.width / imgRatio;
-      offsetY = (canvas.height - drawHeight) / 2;
+    if (useContain) {
+      // Contain: fit entire image, letterbox if needed
+      if (canvasRatio > imgRatio) {
+        drawWidth = canvas.height * imgRatio;
+        offsetX = (canvas.width - drawWidth) / 2;
+      } else {
+        drawHeight = canvas.width / imgRatio;
+        offsetY = (canvas.height - drawHeight) / 2;
+      }
     } else {
-      // Canvas is taller than image (portrait canvas, landscape image)
-      // Fit height, let width overflow
-      drawWidth = canvas.height * imgRatio;
-      offsetX = (canvas.width - drawWidth) / 2;
+      // Cover: fill canvas, crop overflow
+      if (canvasRatio > imgRatio) {
+        drawHeight = canvas.width / imgRatio;
+        offsetY = (canvas.height - drawHeight) / 2;
+      } else {
+        drawWidth = canvas.height * imgRatio;
+        offsetX = (canvas.width - drawWidth) / 2;
+      }
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Fill background for letterbox areas
+    if (useContain) {
+      ctx.fillStyle = "#121212";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
 
